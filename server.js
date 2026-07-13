@@ -11,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const ADMIN_USER = process.env.ADMIN_USER || "admin";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "changeme";
-const UPLOAD_DIR = path.join(__dirname, "uploads");
+const UPLOAD_DIR = path.join(__dirname, "data", "uploads");
 
 if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 

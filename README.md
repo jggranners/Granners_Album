@@ -61,35 +61,43 @@ upload form the same way.
 
 This app needs one thing most "serverless" hosts don't give you by default:
 **a persistent disk**, so uploaded MP3s and the track database survive restarts
-and redeploys. Pick any host below that supports a volume — all three have
-free or near-free tiers.
+and redeploys. Both the database (`data/db.json`) and uploaded audio
+(`data/uploads/`) live under the single `data/` folder specifically so that
+**one volume mount covers everything** — some hosts (Railway included, on
+some plans) only allow one volume per service, so this avoids needing two.
+
+**Whatever host you use: mount the volume at `/app/data` — never at `/app`
+itself.** Mounting at `/app` hides your actual application code (`server.js`,
+`node_modules`, everything) behind the volume, which starts empty, and the
+app will crash on boot with `Cannot find module '/app/server.js'`. This is a
+real mistake it's easy to make, not a hypothetical — mount at `/app/data` only.
 
 ### Option A — Railway (simplest)
 1. Push this folder to a GitHub repo.
 2. On railway.app: New Project → Deploy from GitHub repo.
-3. Add a **Volume**, mount it at `/app/data` and a second at `/app/uploads`
-   (or one volume mounted at `/app` covering both).
+3. Add a **Volume**, mount path `/app/data`.
 4. Set environment variables `ADMIN_USER` and `ADMIN_PASSWORD` in the Railway dashboard.
-5. Railway auto-detects the Dockerfile and deploys. It gives you a public URL immediately.
+5. Railway auto-detects the Dockerfile and deploys. Generate a public domain under Settings → Networking.
 
 ### Option B — Render
 1. Push to GitHub. On render.com: New → Web Service → connect the repo (Docker runtime, auto-detected).
-2. Add a **Disk**, mount path `/app/data` (add a second disk for `/app/uploads`, or point both at one disk root).
+2. Add a **Disk**, mount path `/app/data`.
 3. Set `ADMIN_USER` / `ADMIN_PASSWORD` env vars.
 4. Deploy — Render gives you a `.onrender.com` URL.
 
 ### Option C — Fly.io
 1. `fly launch` in this folder (it will detect the Dockerfile).
 2. `fly volumes create data_vol --size 1`
-3. In `fly.toml`, mount it: `[[mounts]] source = "data_vol" destination = "/app/data"` (add uploads similarly, or nest both under one mount).
+3. In `fly.toml`, mount it: `[[mounts]] source = "data_vol" destination = "/app/data"`
 4. `fly secrets set ADMIN_USER=... ADMIN_PASSWORD=...`
 5. `fly deploy`
 
-A custom domain can be attached in any of these dashboards afterward if you don't want the default subdomain.
+A custom domain can be attached in any of these dashboards afterward if you don't want the default subdomain. Note that root/apex domains (`yoursite.com` rather than `www.yoursite.com`) sometimes need an ALIAS/ANAME record instead of a CNAME, depending on your DNS provider — check what the host's domain screen tells you to add.
 
 ## Notes
 
-- **Storage**: MP3s live on disk, not in the database — the JSON file only stores titles, order, plays, and likes. This keeps the whole thing simple, but it does mean the volume is the source of truth; back it up if the tracks matter to you.
+- **Storage**: MP3s live on disk, not in the database — `db.json` only stores titles, order, plays, and likes. Both live under `data/`, which is why that's the one folder that needs to persist. Back it up if the tracks matter to you.
+- **First deploy starts empty**: `data/db.json` and the uploaded MP3s are deliberately excluded from git (see `.gitignore`) — they're runtime data, not code. That means a fresh deploy has zero tracks until you upload some via `/admin`, even if you'd added tracks while testing locally. That's expected, not a bug.
 - **Play counting**: a play is only counted once a listener is ~15 seconds in (or halfway through short tracks), to avoid inflating counts from accidental clicks.
 - **Likes**: one like per track per browser (tracked via localStorage), not per account — there's no user login system on the public side by design.
 - **Admin auth**: Basic Auth over HTTPS (your host provides HTTPS automatically) is adequate for a single admin user. If you want multiple admins or stronger auth later, that's a bigger change — ask and I can add it.
