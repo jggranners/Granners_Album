@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin — Manage Tracks</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/admin/admin.css" />
+</head>
+<body>
+  <div class="wrap">
+    <h1>Manage album tracks</h1>
+    <p class="hint">Drag rows to reorder. Order here is the order listeners see on the site.</p>
+
+    <section class="upload-box">
+      <h2>Add a track</h2>
+      <form id="uploadForm">
+        <input type="text" id="uploadTitle" placeholder="Track title" required />
+        <input type="file" id="uploadFile" accept=".mp3,audio/mpeg" required />
+        <button type="submit">Upload</button>
+      </form>
+      <p id="uploadStatus" class="status"></p>
+    </section>
+
+    <table id="trackTable">
+      <thead>
+        <tr>
+          <th></th>
+          <th>#</th>
+          <th>Title</th>
+          <th>Plays</th>
+          <th>Likes</th>
+          <th>Replace MP3</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="trackBody"></tbody>
+    </table>
+
+    <section class="comments-box">
+      <h2>Comments</h2>
+      <p class="hint">Reply to post as <span id="artistNameLabel">the artist</span> — it shows with an ARTIST badge on the public page.</p>
+      <div id="adminCommentsList"></div>
+    </section>
+  </div>
+
+  <script src="/admin/admin.js"></script>
+</body>
+</html>

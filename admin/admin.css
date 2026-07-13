@@ -1,0 +1,160 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #0a0908;
+  color: #ece5da;
+  font-family: "Inter", sans-serif;
+  padding: 32px;
+}
+.wrap { max-width: 900px; margin: 0 auto; }
+h1 { font-size: 22px; margin: 0 0 4px; }
+.hint { color: #8f887e; font-size: 13px; margin: 0 0 24px; }
+
+.upload-box {
+  background: #15130f;
+  border: 1px solid rgba(236,229,218,0.1);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 28px;
+}
+.upload-box h2 { font-size: 15px; margin: 0 0 12px; }
+#uploadForm { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+#uploadForm input[type="text"] {
+  flex: 1;
+  min-width: 200px;
+  padding: 8px 10px;
+  background: #0a0908;
+  border: 1px solid rgba(236,229,218,0.15);
+  border-radius: 4px;
+  color: #ece5da;
+}
+#uploadForm input[type="file"] { color: #8f887e; font-size: 13px; }
+#uploadForm button, .btn {
+  background: #c1793f;
+  color: #171512;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.status { font-size: 13px; color: #8f887e; margin: 10px 0 0; }
+.status.error { color: #d9736e; }
+.status.success { color: #83b583; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+  text-align: left;
+  font-family: "Space Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: #8f887e;
+  border-bottom: 1px solid rgba(236,229,218,0.15);
+  padding: 8px;
+}
+td {
+  padding: 8px;
+  border-bottom: 1px solid rgba(236,229,218,0.08);
+  vertical-align: middle;
+}
+tr[draggable="true"] { cursor: grab; }
+tr.dragging { opacity: 0.4; }
+
+td input[type="text"] {
+  width: 100%;
+  padding: 6px 8px;
+  background: #0a0908;
+  border: 1px solid rgba(236,229,218,0.15);
+  border-radius: 4px;
+  color: #ece5da;
+  font-size: 14px;
+}
+input[type="file"].replace-file { font-size: 12px; color: #8f887e; max-width: 160px; }
+
+.delete-btn {
+  background: none;
+  border: 1px solid rgba(217,115,110,0.4);
+  color: #d9736e;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.delete-btn:hover { background: rgba(217,115,110,0.1); }
+
+.drag-handle { color: #8f887e; cursor: grab; }
+
+/* ---------- Comments moderation ---------- */
+.comments-box { margin-top: 32px; }
+.comments-box h2 { font-size: 18px; margin: 0 0 4px; }
+
+.admin-comment {
+  background: #15130f;
+  border: 1px solid rgba(236,229,218,0.1);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+.admin-comment.is-artist { border-color: rgba(193,121,63,0.35); background: rgba(193,121,63,0.06); }
+
+.admin-comment-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #8f887e;
+}
+.admin-comment-author { color: #ece5da; font-weight: 600; font-size: 13px; }
+.admin-comment-track { font-family: "Space Mono", monospace; }
+.admin-comment-badge {
+  font-family: "Space Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: #c1793f;
+  border: 1px solid rgba(193,121,63,0.4);
+  border-radius: 8px;
+  padding: 1px 6px;
+}
+.admin-comment-reactions { font-family: "Space Mono", monospace; font-size: 11px; }
+
+.admin-comment-text { margin: 0 0 10px; font-size: 14px; line-height: 1.45; }
+
+.admin-comment-actions { display: flex; gap: 8px; }
+.admin-comment-actions button {
+  background: none;
+  border: 1px solid rgba(236,229,218,0.18);
+  color: #ece5da;
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.admin-comment-actions .reply-btn:hover { border-color: #c1793f; color: #c1793f; }
+.admin-comment-actions .delete-btn { border-color: rgba(217,115,110,0.4); color: #d9736e; }
+.admin-comment-actions .delete-btn:hover { background: rgba(217,115,110,0.1); }
+
+.reply-form { margin-top: 10px; display: flex; gap: 8px; }
+.reply-form textarea {
+  flex: 1;
+  min-height: 40px;
+  padding: 8px 10px;
+  background: #0a0908;
+  border: 1px solid rgba(236,229,218,0.15);
+  border-radius: 6px;
+  color: #ece5da;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  resize: vertical;
+}
+.reply-form button {
+  background: #c1793f;
+  color: #171512;
+  border: none;
+  padding: 0 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.no-comments { color: #8f887e; font-size: 13px; padding: 16px 0; }
