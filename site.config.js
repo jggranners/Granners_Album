@@ -6,6 +6,7 @@ module.exports = {
   eyebrow: "GRANNERS · DOUBLE ALBUM STREAM",
   tagline: "",
   credit: "pluginjunky@gmail.com",
+  contributorsNote: "Thank you both Elliot Joyce and Alan Whittiker for your sprinkles of magic x",
 
   // Palette pulled from the two source photos: warm amber/rust from the
   // tunnel shot's glow, deep wine from its far edge, near-black from the

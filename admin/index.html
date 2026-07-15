@@ -3,47 +3,86 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Admin — Manage Tracks</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/admin/admin.css" />
+<title>__TITLE__</title>
+<meta property="og:title" content="__OG_TITLE__" />
+<meta property="og:description" content="__OG_DESC__" />
+<meta property="og:image" content="__OG_IMAGE__" />
+<meta property="og:type" content="music.song" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@6..96,400..700&family=Inter:wght@400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <div class="wrap">
-    <h1>Manage album tracks</h1>
-    <p class="hint">Drag rows to reorder. Order here is the order listeners see on the site.</p>
+  <div class="grain"></div>
 
-    <section class="upload-box">
-      <h2>Add a track</h2>
-      <form id="uploadForm">
-        <input type="text" id="uploadTitle" placeholder="Track title" required />
-        <input type="file" id="uploadFile" accept=".mp3,audio/mpeg" required />
-        <button type="submit">Upload</button>
+  <header class="hero">
+    <div class="hero-photo" id="heroPhoto"></div>
+    <div class="hero-scrim"></div>
+    <div class="hero-text">
+      <p class="eyebrow" id="eyebrow">ON AIR &middot; FULL ALBUM STREAM</p>
+      <h1 id="artistName">&nbsp;</h1>
+      <h2 id="albumTitle">&nbsp;</h2>
+      <p class="tagline" id="tagline"></p>
+      <a class="credit" id="credit" href="#"></a>
+      <p class="contributors-note" id="contributorsNote"></p>
+      <button class="share-album-btn" id="shareAlbumBtn">Share album link</button>
+    </div>
+  </header>
+
+  <main class="tracklist-wrap">
+    <div class="playlist-controls">
+      <button class="playlist-btn play-all-btn" id="playAllBtn">Play</button>
+      <button class="playlist-btn shuffle-btn" id="shuffleBtn">Shuffle</button>
+      <span class="total-plays" id="totalPlays"></span>
+    </div>
+    <div class="tracklist-head">
+      <span>Track</span>
+      <span class="col-plays">Plays</span>
+      <span class="col-likes">Likes</span>
+      <span class="col-comments">Comments</span>
+      <span class="col-share">Share</span>
+    </div>
+    <ol class="tracklist" id="tracklist"></ol>
+  </main>
+
+  <footer class="player-bar" id="playerBar">
+    <div class="player-bar-ambient"></div>
+    <div class="player-info">
+      <span class="now-dot-wrap">
+        <span class="now-dot" id="nowDot"></span>
+      </span>
+      <span id="nowTitle">Select a track</span>
+      <button class="now-share" id="shareNowBtn" aria-label="Share this track">Share</button>
+    </div>
+    <audio id="audio" preload="none"></audio>
+    <div class="player-controls">
+      <button id="playPause" aria-label="Play or pause">&#9658;</button>
+      <input type="range" id="seek" min="0" max="100" value="0" />
+      <span class="time" id="timeDisplay">0:00 / 0:00</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <div class="comments-overlay" id="commentsOverlay">
+    <div class="comments-panel">
+      <div class="comments-panel-header">
+        <span id="commentsTrackTitle">Comments</span>
+        <button class="comments-close" id="commentsClose" aria-label="Close comments">&times;</button>
+      </div>
+      <div class="comments-list" id="commentsList"></div>
+      <form class="comments-form" id="commentsForm">
+        <input type="text" id="commentAuthor" placeholder="Your name" maxlength="60" autocomplete="off" />
+        <div class="comments-form-row">
+          <input type="text" id="commentText" placeholder="Say something about this track…" maxlength="500" autocomplete="off" required />
+          <button type="submit">Post</button>
+        </div>
       </form>
-      <p id="uploadStatus" class="status"></p>
-    </section>
-
-    <table id="trackTable">
-      <thead>
-        <tr>
-          <th></th>
-          <th>#</th>
-          <th>Title</th>
-          <th>Plays</th>
-          <th>Likes</th>
-          <th>Replace MP3</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="trackBody"></tbody>
-    </table>
-
-    <section class="comments-box">
-      <h2>Comments</h2>
-      <p class="hint">Reply to post as <span id="artistNameLabel">the artist</span> — it shows with an ARTIST badge on the public page.</p>
-      <div id="adminCommentsList"></div>
-    </section>
+    </div>
   </div>
 
-  <script src="/admin/admin.js"></script>
+  <script src="/player.js"></script>
 </body>
 </html>

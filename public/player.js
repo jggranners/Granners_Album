@@ -53,6 +53,9 @@ async function loadConfig() {
   const taglineEl = document.getElementById("tagline");
   taglineEl.textContent = cfg.tagline || "";
   taglineEl.style.display = cfg.tagline ? "" : "none";
+  const contributorsNoteEl = document.getElementById("contributorsNote");
+  contributorsNoteEl.textContent = cfg.contributorsNote || "";
+  contributorsNoteEl.style.display = cfg.contributorsNote ? "" : "none";
   const creditEl = document.getElementById("credit");
   creditEl.textContent = cfg.credit || "";
   if (cfg.credit && cfg.credit.includes("@")) {
@@ -73,6 +76,13 @@ async function loadTracks() {
   const res = await fetch("/api/tracks");
   tracks = await res.json();
   renderTracklist();
+  updateTotalPlays();
+}
+
+function updateTotalPlays() {
+  const total = tracks.reduce((sum, t) => sum + (t.plays || 0), 0);
+  const label = total === 1 ? "total play" : "total plays";
+  document.getElementById("totalPlays").textContent = `${total.toLocaleString()} ${label}`;
 }
 
 function renderTracklist() {
@@ -475,6 +485,7 @@ audio.addEventListener("timeupdate", () => {
           t.plays = data.plays;
           const row = getTrackRow(t.id);
           if (row) row.querySelector(".track-plays").textContent = data.plays;
+          updateTotalPlays();
         });
     }
   }
