@@ -3,7 +3,7 @@ module.exports = {
   artistName: "JOHN GRANVILLE",
   albumTitle: "Always Be Yourself",
   releaseYear: "2026",
-  eyebrow: "GRANNERS · DOUBLE ALBUM STREAM TEST",
+  eyebrow: "GRANNERS · DOUBLE ALBUM STREAM",
   tagline: "",
   credit: "pluginjunky@gmail.com",
 
